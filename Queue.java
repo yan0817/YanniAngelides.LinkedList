@@ -5,9 +5,9 @@ Iterface of the Queue class which is an offshoot of a LinkedList
 */
 public interface Queue<E>
 {
-	void offer(E item);
+	public void offer(E item);
 	// offer adds to the end of the Linked list so that the end pointer is always the same thing
-	E poll();
-	E peek();
-	boolean isEmpty();
+	public E poll();
+	public E peek();
+	public boolean isEmpty();
 }

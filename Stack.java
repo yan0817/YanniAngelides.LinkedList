@@ -5,9 +5,9 @@ Iterface of the Queue class which is an offshoot of a LinkedList
 */
 public interface Stack<E>
 {
-	void push(E item);
+	public void push(E item);
 	// adds to the beginning of the list so that the end pointer is always the same thing
-	E pop();
-	E peek();
-	boolean isEmpty();
+	public E pop();
+	public E peek();
+	public boolean isEmpty();
 }

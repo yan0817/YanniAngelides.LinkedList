@@ -1,8 +1,3 @@
-/**
-LinkedListIterator class which is called by the iterator method in LinkedList so that for loops can be used with any LinkedList	
-@autor Yanni Angelides
-@version 11/30/15
-*/
 import java.util.NoSuchElementException; 
 import java.util.Iterator;
 import java.lang.Iterable;
@@ -28,7 +23,7 @@ public class LinkedListIterator<E> implements Iterator<E>
 		}
 		else
 		{
-			E item = curr.getItem();
+			E item = curr.getValue();
 			curr = curr.getNext();
 			return item; 
 		}
