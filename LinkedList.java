@@ -53,8 +53,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	{
 		if (list.size() == 0)
 		{
-			System.out.println("The LinkedList you are trying to copy is equal to null");
-			throw new IllegalArgumentException(); 
+			throw new IllegalArgumentException("The LinkedList you are trying to copy is equal to null"); 
 			//cannot copy a LinkedList that is null
 		}
 		else
@@ -78,12 +77,12 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	@param int indx, the index of the ListNode that needs to be found
 	@return ListNode<E>, ListNode that is needed
 	*/
+	@SuppressWarnings("unchecked")
 	public ListNode<E> get(int indx)
 	{
 		if (indx >= size || indx < 0)
 		{
-			System.out.println("That index does not exist in the LinkedList");
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("That index does not exist in the LinkedList");
 		}
 		else
 		{
@@ -146,8 +145,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	{
 		if (indx >= size || indx < 0)
 		{
-			System.out.println("That index does not exist in the LinkedList");
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("That index does not exist in the LinkedList");
 		}
 		ListNode<E> n = new ListNode<E>(item); 
 		//Need to make the item into a ListNode so that it can be put into the LinkedList
@@ -182,9 +180,9 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	*/
 	public boolean contains(E item)
 	{
-		for(ListNode<E> i = head; i != tail; i = i.getNext())
+		for(ListNode<E> i = head; i != null; i = i.getNext())
 		{
-			if(i.getValue().equals(item))
+			if((i.getValue()).equals(item))
 			{
 				return true;
 			}
@@ -207,12 +205,12 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	@param int indx, index that needs to be removed
 	@return boolean indicating whether or not the index was removed
 	*/
+	@SuppressWarnings("unchecked")
 	public boolean remove(int indx)
 	{
 		if (indx >= size || indx < 0)
 		{
-			System.out.println("That index does not exist in the LinkedList");
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("That index does not exist in the LinkedList");
 		}
 		else if (indx == 0)
 		{
@@ -241,8 +239,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	{
 		if (indx > size || indx < 0)
 		{
-			System.out.println("That index does not exist in the LinkedList");
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("That index does not exist in the LinkedList");
 		}
 		else if(indx == 0)
 		{
@@ -300,8 +297,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	{
 		if (size == 0)
 		{
-			System.out.println("The LinkedList is empty. Have to add a node to the list before you can remove one");
-			throw new NoSuchElementException();
+			throw new NoSuchElementException("The LinkedList is empty. Have to add a node to the list before you can remove one");
 		}
 		ListNode<E> save = head; //have to save head here because once it is removed from the LinkedList there is no way to retrieve it so that it can be returned
 		head = head.getNext();
@@ -317,8 +313,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	{
 		if (size == 0)
 		{
-			System.out.println("The LinkedList is empty. Have to add a node to the list before you can remove one");
-			throw new NoSuchElementException();
+			throw new NoSuchElementException("The LinkedList is empty. Have to add a node to the list before you can remove one");
 		}
 		ListNode<E> save = tail;
 		tail = this.get(size - 1);
@@ -355,8 +350,16 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	public void addLast(E item)
 	{
 		ListNode n = new ListNode(item);
-		tail.setNext(n);	
-		tail = n;
+		if(this.size() == 0)
+		{
+			head = n;
+			tail = n;
+		}
+		else
+		{
+			tail.setNext(n);	
+			tail = n;
+		}
 		size++;
 	}
 	
@@ -381,6 +384,7 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	Method that allows for the creation of an Iterator of LinkedList so for loops can be used with it
 	@return Iterator<E> created in the LinkedListIterator class
 	*/
+	@SuppressWarnings("unchecked")
 	public Iterator<E> iterator()
 	{
 		return new LinkedListIterator(head); 
@@ -441,18 +445,17 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 	*/
 	public static void main(String [] args)
 	{
-		LinkedList arr = new LinkedList();
+		LinkedList<Integer> arr = new LinkedList<Integer>();
 		ListNode<Integer> n1 = new ListNode<Integer>(5);
 		ListNode<Integer> n2 = new ListNode<Integer>(9);
 		ListNode<Integer> n3 = new ListNode<Integer>(234);
 		ListNode<Integer> n4 = new ListNode<Integer>(8);
-		arr.add(n2);
-		arr.add(n1);
-		arr.add(arr.size(), n3);
-		arr.add(0, n4);
+		arr.add(9);
+		arr.add(5);
+		arr.add(arr.size(), 234);
+		arr.add(0, 8);
 		System.out.println(arr.size());
 		System.out.println(arr.toString());
-		//arr.remove(5);
 		LinkedList arr2 = new LinkedList(n4);
 		LinkedList arr3 = new LinkedList(arr);
 		System.out.println(arr2.toString());
@@ -460,10 +463,10 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 		System.out.println(arr.get(0).toString());
 		System.out.println(arr.get(1).toString());
 		System.out.println(arr.get(arr.size()-1).toString());
-		arr.set(1, n4);
+		arr.set(0, 9);
 		System.out.println(arr.toString());
 		System.out.println(arr.contains(8));
-		System.out.println(arr.indexOf(8));
+		System.out.println(arr.indexOf(9));
 		System.out.println(arr.indexOf(5));
 		System.out.println(arr.indexOf(234));
 		arr3.clear();
@@ -472,6 +475,31 @@ public class LinkedList<E> implements Iterable<E>, Stack<E>, Queue<E>
 		System.out.println(arr.isEmpty());
 		arr.remove(0);
 		System.out.println(arr.toString());
+		System.out.println(arr.contains(234));
+		System.out.println(arr.indexOf(5));
+		for (int i: arr)
+		{
+			System.out.println("*");		
+		}
+		LinkedList<String> arr5 = new LinkedList<String>();
+		arr5.add("a");
+		arr5.add("b");
+		arr5.add("c");
+		arr5.add("d");
+		System.out.println(arr5.toString());
+		arr5.remove("d");
+		System.out.println(arr5.toString());
+		
+		Stack<String> sta = new LinkedList<String>();
+		sta.push("hello");
+		System.out.println(sta.peek());
+		System.out.println(sta.pop());
+		Queue<String> que = new LinkedList<String>();
+		que.offer("1");
+		que.offer("2");
+		System.out.println(que.peek());
+		System.out.println(que.poll());
+		System.out.println(que.peek());
 	}
 }
 

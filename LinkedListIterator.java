@@ -19,7 +19,8 @@ public class LinkedListIterator<E> implements Iterator<E>
 	{
 		if(hasNext() == false)
 		{
-			throw new NoSuchElementException(); //Because if hasNext() == false then there us no such thing as the next element
+			throw new NoSuchElementException("No next item in the Linked List"); 
+			//Because if hasNext() == false then there us no such thing as the next element
 		}
 		else
 		{
